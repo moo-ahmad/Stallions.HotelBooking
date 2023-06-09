@@ -1,0 +1,24 @@
+﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Stallions.HotelBooking.DAL.Data.Models
+{
+    [Table("RoleClaim")]
+    public class RoleClaim : IdentityRoleClaim<Guid>
+    {
+        public override int Id { get; set; }
+
+        public override string ClaimType { get; set; }
+
+        public override string ClaimValue { get; set; }
+
+        [Key]
+        public override Guid RoleId { get; set; }
+    }
+}
