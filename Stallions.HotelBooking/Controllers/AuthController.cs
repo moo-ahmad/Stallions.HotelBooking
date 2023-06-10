@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Stallions.HotelBooking.DAL.Data.Models;
 using Stallions.HotelBooking.Utils.DTO;
+using Stallions.HotelBooking.Utils.Enums;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -14,28 +15,30 @@ namespace Stallions.HotelBooking.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly ILogger<AuthController> _logger;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly IConfiguration _configuration;
-        public AuthController(UserManager<User> userManager, RoleManager<Role> roleManager, IConfiguration configuration)
+        public AuthController(UserManager<User> userManager, ILogger<AuthController> logger, RoleManager<Role> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _logger = logger;
         }
 
+        // POST: api/Auth/login
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest model)
         {
             try
             {
+                _logger.LogInformation("Authenticating user with the email: " + model.Email);
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
                 {
                     var userRoles = await _userManager.GetRolesAsync(user);
-
-
                     var authClaims = new List<Claim>
                     {
                     new Claim(ClaimTypes.Name, user.UserName),
@@ -48,19 +51,20 @@ namespace Stallions.HotelBooking.API.Controllers
                     }
 
                     var token = GetToken(authClaims);
-
+                    _logger.LogInformation("User authenticated successfull.");
                     return Ok(new
                     {
                         token = new JwtSecurityTokenHandler().WriteToken(token),
                         expiration = token.ValidTo
                     });
                 }
+                _logger.LogInformation("User authentication failed.");
                 return Unauthorized();
             }
             catch (Exception ex)
             {
-                Console.Write("Error info:" + ex.Message);
-                throw;
+                _logger.LogError("Unexpected Error: " + ex.Message);
+                return new JsonResult(new { status = (int) ApiResponseStatus.InternalServerError, msg = ex.Message.ToString(), data = "" });
             }
         }
 
