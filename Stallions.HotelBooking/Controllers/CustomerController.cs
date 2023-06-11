@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Stallions.HotelBooking.Utils.DTO;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Stallions.HotelBooking.API.Controllers
 {
@@ -9,8 +11,14 @@ namespace Stallions.HotelBooking.API.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        [HttpGet]
-        [Route("test")]
-        public JsonResult test() { return new JsonResult(true); }
+        [HttpPost]
+        [Route("CreateBooking")]
+        public IActionResult CreateBooking([FromBody] CreateBookingRequest model)
+        {
+            return Ok(new
+            {
+                Result = true
+            });
+        }
     }
 }

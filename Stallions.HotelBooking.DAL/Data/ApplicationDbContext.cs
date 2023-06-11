@@ -29,6 +29,11 @@ namespace Stallions.HotelBooking.DAL.Data
 
             builder.Entity<Role>().HasData(new Role { Id = Guid.NewGuid(), Name = RoleEnums.Admin.ToString(), NormalizedName = RoleEnums.Admin.ToString().ToLower(), ConcurrencyStamp = Guid.NewGuid().ToString() });
             builder.Entity<Role>().HasData(new Role { Id = Guid.NewGuid(), Name = RoleEnums.Customer.ToString(), NormalizedName = RoleEnums.Customer.ToString().ToLower(), ConcurrencyStamp = Guid.NewGuid().ToString() });
+            builder.Entity<BookingStatus>().HasData(new BookingStatus { Id = Guid.NewGuid(), Name = BookingStatusEnum.Pending.ToString() });
+            builder.Entity<BookingStatus>().HasData(new BookingStatus { Id = Guid.NewGuid(), Name = BookingStatusEnum.Accepted.ToString() });
+            builder.Entity<BookingStatus>().HasData(new BookingStatus { Id = Guid.NewGuid(), Name = BookingStatusEnum.Rejected.ToString() });
+            builder.Entity<RoomType>().HasData(new RoomType { Id = Guid.NewGuid(), Name = RoomTypeEnum.Single.ToString() });
+            builder.Entity<RoomType>().HasData(new RoomType { Id = Guid.NewGuid(), Name = RoomTypeEnum.Double.ToString() });
         }
 
         public new DbSet<Role> Roles { get; set; }
@@ -38,5 +43,9 @@ namespace Stallions.HotelBooking.DAL.Data
         public new DbSet<UserClaim> UserClaims { get; set; }
         public new DbSet<UserLogin> UserLogins { get; set; }
         public new DbSet<UserToken> UserTokens { get; set; }
+        public DbSet<RoomBooking> RoomBookings { get; set; } 
+        public DbSet<BookingStatus> BookingStatuses { get; set; } 
+        public DbSet<Room> Rooms { get; set; } 
+        public DbSet<RoomType> RoomTypes { get; set; }
     }
 }

@@ -66,5 +66,6 @@ namespace Stallions.HotelBooking.DAL.Data.Models
         public DateTime CreatedTimeStamp { get; set; } = DateTime.UtcNow;
 
         public DateTime UpdatedTimeStamp { get; set; } = DateTime.UtcNow;
+        public List<RoomBooking> RoomBookings { get; set; }
     }
 }
