@@ -54,6 +54,13 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin",
+        policy => policy.RequireRole("Admin"));
+    options.AddPolicy("Customer",
+        policy => policy.RequireRole("Customer"));
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
