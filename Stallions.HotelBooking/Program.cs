@@ -2,8 +2,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Stallions.HotelBooking.BLL.Interface;
+using Stallions.HotelBooking.BLL.Service;
 using Stallions.HotelBooking.DAL.Data;
 using Stallions.HotelBooking.DAL.Data.Models;
+using Stallions.HotelBooking.DAL.Interface;
+using Stallions.HotelBooking.DAL.Repository;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +16,13 @@ ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient(typeof(ICrudService<>), typeof(CrudService<>));
+builder.Services.AddTransient<IRoleRepository, RoleRepository>();
+builder.Services.AddTransient<IRoleService, RoleService>();
+builder.Services.AddTransient<IUserRoleRepository, UserRoleRepository>();
+builder.Services.AddTransient<IUserRoleService, UserRoleService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
