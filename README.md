@@ -13,4 +13,4 @@
 -> Change the default project to Stallions.HotelBooking.DAL <br>
 -> Run 'update-database' <br>
 <h2>Database Diagram</h2>
-![Alt Text](https://github-production-user-asset-6210df.s3.amazonaws.com/73497472/245049473-ba82b791-a316-4608-bc6d-2440e9d814ab.png)
+![Database Diagram](https://github.com/moo-ahmad/Stallions.HotelBooking/assets/73497472/5f521b45-0da9-4cf9-9d93-22f1dd4b916b)
