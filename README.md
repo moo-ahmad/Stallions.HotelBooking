@@ -1,7 +1,7 @@
-Stallions Hotel Management System API:
+<h1>Stallions Hotel Management System API:</h1>
 
-Tech stack:
--> Backend Server: ASP.NET CORE 6
+<h2>Tech stack:</h2>
+-> Backend Server: ASP.NET CORE 6 <br>
 -> Database: SQL Server
 -> Authentication & Authorization: Identity Server, JWT
 
