@@ -2,6 +2,7 @@
 
 <h2>Tech stack:</h2>
 -> Backend Server: ASP.NET CORE 6 <br>
+-> N-Tier Architecture <br>
 -> Database: SQL Server <br>
 -> Authentication & Authorization: Identity Server, JWT <br>
 
